@@ -7,12 +7,11 @@ All you need to do is to clone this repository (or download and extract the ZIP)
 
 Test output can be seen by pointing your browser at SpecRunner.html in the project root. 
 
-The solution may also be run on a server: if so, you are advised to change the references to jquery and require in index.html to refer to their CDN versions as these will likely already be in the users browser cache. Additionally, you may wish to remove the include of topics-data.js from index.html, and replace the line
-
+The solution may also be run on a server: on Apache, just point DocumentRoot to the root of the project. If so, you are advised to change the references to jquery and require.js in index.html to refer to their CDN versions as these will likely already be in the user's browser cache. Additionally, you should remove the workaround for not being able to load the topics data via XHR when running from file://. Remove the include of topics-data.js from index.html, and replace the line
 ```
     onLoadTopics(__DATA);
 ```
-in js/main.js with the commented out line $.getJSON() on the preceding line.
+in js/main.js with the commented out line $.getJSON() on the preceding line. 
 
 ## Production
 
