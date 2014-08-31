@@ -1,3 +1,11 @@
+/*
+ * Quick hand-rolled TestRunner to run xUnit-style tests and suites of tests.
+ *
+ * Suites should be objects with test methods of the form test...().
+ * If optional setUp() and tearDown() methods are included, they are run before and after EACH TEST.
+ * PASS/FAIL results are output into an element with id=results in the DOM.
+ */
+
 function echo(string, isError) {
     $('#results').append('<p style="color:'+(isError?'red':'green')+'">'+string+'</p>');
 }
@@ -25,5 +33,10 @@ TestRunner = {
                 this.failed = false;
             }
         }
+    },
+
+    runAll: function(suites) {
+        var that = this;
+        $.each(suites, function (i, each) { that.run(each); });
     }
 };
