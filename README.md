@@ -1,10 +1,5 @@
-TopicsCloud
-===========
-
-My submission to the Brandwatch Javascript developer challenge
-
-
 # TopicsCloud
+_Brandwatch Javascript developer challenge_
 
 ## Getting Started
 
