@@ -1,5 +1,6 @@
 define(function(require) {
 
+    var Sentiment = require('../../js/models/Sentiment');
     var Topic = require('../../js/models/Topic');
     var TopicCollection = require('../../js/models/TopicCollection');
 
@@ -38,13 +39,13 @@ define(function(require) {
             TestRunner.assertEquals(1, topics[7].asTag().getSize());
         },
 
-        testTagClassCalculatedCorrectly: function() {
+        testTagSentimentCalculatedCorrectly: function() {
             var topics = this._makeTopics([{sentimentScore: 30}, {sentimentScore: 40}, {sentimentScore: 50}, {sentimentScore: 60}, {sentimentScore: 70}]);
-            TestRunner.assertEquals('negative', topics[0].asTag().class);
-            TestRunner.assertEquals('neutral', topics[1].asTag().class);
-            TestRunner.assertEquals('neutral', topics[2].asTag().class);
-            TestRunner.assertEquals('neutral', topics[3].asTag().class);
-            TestRunner.assertEquals('positive', topics[4].asTag().class);
+            TestRunner.assertEquals(Sentiment.NEGATIVE, topics[0].asTag().sentimentType);
+            TestRunner.assertEquals(Sentiment.NEUTRAL, topics[1].asTag().sentimentType);
+            TestRunner.assertEquals(Sentiment.NEUTRAL, topics[2].asTag().sentimentType);
+            TestRunner.assertEquals(Sentiment.NEUTRAL, topics[3].asTag().sentimentType);
+            TestRunner.assertEquals(Sentiment.POSITIVE, topics[4].asTag().sentimentType);
         }
     };
 

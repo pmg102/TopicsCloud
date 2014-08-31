@@ -1,13 +1,14 @@
 define(function(require) {
 
+    var Sentiment = require('../../js/models/Sentiment');
     var TagPresenter = require('../../js/presenters/TagPresenter');
     var TopicCloudPresenter = require('../../js/presenters/TopicCloudPresenter');
 
     return {
         setUp: function() {
             var that = this;
-            this._tag1 = { label: 'testLabel', getSize: function() { return 5; }, class: 'neutral' };
-            this._tag2 = { label: 'test2Label', getSize: function() { return 3; }, class: 'positive' };
+            this._tag1 = { label: 'testLabel', getSize: function() { return 5; }, sentimentType: Sentiment.NEUTRAL };
+            this._tag2 = { label: 'test2Label', getSize: function() { return 3; }, sentimentType: Sentiment.POSITIVE };
             this._topics = [
                 { id: 5, asTag: function() { return that._tag1; } },
                 { id: 7, asTag: function() { return that._tag2; } }
@@ -33,17 +34,17 @@ define(function(require) {
             TestRunner.assertEquals(true, wasClicked);
         },
 
-        testTagCloudViewRendersCorrectly: function() {
-            var tagCloudView = new TopicCloudPresenter(this.$element, this._topics, this._topicDetailPresenter);
-            tagCloudView.render();
+        testTopicCloudViewRendersCorrectly: function() {
+            var topicCloudPresenter = new TopicCloudPresenter(this.$element, this._topics, this._topicDetailPresenter);
+            topicCloudPresenter.render();
             TestRunner.assertEquals(
                 '<a href="#" class="neutral size-5">testLabel</a><a href="#" class="positive size-3">test2Label</a>',
                 this.$element.html());
         },
 
-        testTagCloudViewCorrectClickEventIsPropagated: function() {
-            var tagCloudView = new TopicCloudPresenter(this.$element, this._topics, this._topicDetailPresenter);
-            tagCloudView.render();
+        testTopicCloudViewCorrectClickEventIsPropagated: function() {
+            var topicCloudPresenter = new TopicCloudPresenter(this.$element, this._topics, this._topicDetailPresenter);
+            topicCloudPresenter.render();
             this.$element.find('a').eq(0).click();
             TestRunner.assertEquals(this._topics[0].id, this._topicDetailPresenter._idSelected);
             this.$element.find('a').eq(1).click();

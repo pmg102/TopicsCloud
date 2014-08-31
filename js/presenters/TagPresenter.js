@@ -7,7 +7,8 @@
  *      Tag, jQuery
  */
 
-define(function() {
+define(function(require) {
+    var Sentiment = require('../models/Sentiment');
 
     function TagPresenter($element, tag, onClick) {
         this.$element = $element;
@@ -16,10 +17,18 @@ define(function() {
         this.onClick = onClick;
     }
 
+    TagPresenter.prototype._sentimentTypeAsClass = function() {
+        switch (this.sentimentType) {
+            case Sentiment.POSITIVE: return 'positive';
+            case Sentiment.NEGATIVE: return 'negative';
+            default: return 'neutral';
+        }
+    }
+
     TagPresenter.prototype.render = function() {
         $('<a href="#"></a>')
             .text(this.label)
-            .addClass(this.class+' size-'+this.size)
+            .addClass(this._sentimentTypeAsClass() + ' size-' + this.size)
             .click(this.onClick)
             .appendTo(this.$element);
     };

@@ -7,7 +7,8 @@
  *      is a member of a TopicCollection
  */
 
-define(function() {
+define(function(require) {
+    var Sentiment = require('./Sentiment');
     function Topic(topicData, topicCollection) {
         $.extend(this, topicData);
         this._topicCollection = topicCollection;
@@ -22,8 +23,10 @@ define(function() {
 
         return {
             label: that.label,
-            getSize: function() { return Math.ceil(that._calculateProportionalVolume() * 6) || 1; },
-            class: that.sentimentScore < 40 ? 'negative' : that.sentimentScore > 60 ? 'positive' : 'neutral'
+            getSize: function() {
+                return Math.ceil(that._calculateProportionalVolume() * 6) || 1;
+            },
+            sentimentType: Sentiment.fromScore(that.sentimentScore)
         };
     };
 
