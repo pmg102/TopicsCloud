@@ -1,5 +1,5 @@
 /*
- * TopicDetail Presenter
+ * TopicDetail ViewModel
  *
  * Responsibility:
  *      Render details of a Topic into the DOM
@@ -14,7 +14,7 @@
 
 define(function() {
 
-    function TopicDetailPresenter($element, topics) {
+    function TopicDetailViewModel($element, topics) {
         this.$element = $element;
         this.topics = [];
         var that = this;
@@ -22,12 +22,12 @@ define(function() {
         this.selectedTopic = null;
     }
 
-    TopicDetailPresenter.prototype.selectTopic = function(topicId) {
+    TopicDetailViewModel.prototype.selectTopic = function(topicId) {
         this.selectedTopic = this.topics[topicId];
         this.render();
     };
 
-    TopicDetailPresenter.prototype.render = function() {
+    TopicDetailViewModel.prototype.render = function() {
         if (!this.selectedTopic) {
             this.$element.find('.show-details').hide();
             this.$element.find('.no-details').show();
@@ -43,5 +43,5 @@ define(function() {
         }
     };
 
-    return TopicDetailPresenter;
+    return TopicDetailViewModel;
 });

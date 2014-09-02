@@ -1,5 +1,5 @@
 /*
- * Tag Presenter
+ * Tag ViewModel
  *
  * Responsibility:
  *      Renders a Tag onto a DOM element and binds a click to a handler
@@ -10,14 +10,14 @@
 define(function(require) {
     var Sentiment = require('../models/Sentiment');
 
-    function TagPresenter($element, tag, onClick) {
+    function TagViewModel($element, tag, onClick) {
         this.$element = $element;
         $.extend(this, tag);
         this.size = this.getSize();
         this.onClick = onClick;
     }
 
-    TagPresenter.prototype._sentimentTypeAsClass = function() {
+    TagViewModel.prototype._sentimentTypeAsClass = function() {
         switch (this.sentimentType) {
             case Sentiment.POSITIVE: return 'positive';
             case Sentiment.NEGATIVE: return 'negative';
@@ -25,7 +25,7 @@ define(function(require) {
         }
     }
 
-    TagPresenter.prototype.render = function() {
+    TagViewModel.prototype.render = function() {
         $('<a href="#"></a>')
             .text(this.label)
             .addClass(this._sentimentTypeAsClass() + ' size-' + this.size)
@@ -33,5 +33,5 @@ define(function(require) {
             .appendTo(this.$element);
     };
 
-    return TagPresenter;
+    return TagViewModel;
 });
