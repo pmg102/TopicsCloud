@@ -10,27 +10,21 @@
 define(function(require) {
     var Sentiment = require('../models/Sentiment');
 
-    function TagViewModel($element, tag, onClick) {
-        this.$element = $element;
-        $.extend(this, tag);
-        this.size = this.getSize();
-        this.onClick = onClick;
+    function TagViewModel(tag, onClick) {
+        this.tag = tag;
+        this.size = this.tag.getSize();
+
+        this.handleClick = onClick;
+        this.label = ko.observable(this.tag.label);
+        this.css = ko.observable(this._sentimentTypeAsClass() + ' size-' + this.size);
     }
 
     TagViewModel.prototype._sentimentTypeAsClass = function() {
-        switch (this.sentimentType) {
+        switch (this.tag.sentimentType) {
             case Sentiment.POSITIVE: return 'positive';
             case Sentiment.NEGATIVE: return 'negative';
             default: return 'neutral';
         }
-    }
-
-    TagViewModel.prototype.render = function() {
-        $('<a href="#"></a>')
-            .text(this.label)
-            .addClass(this._sentimentTypeAsClass() + ' size-' + this.size)
-            .click(this.onClick)
-            .appendTo(this.$element);
     };
 
     return TagViewModel;

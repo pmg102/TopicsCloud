@@ -28,7 +28,6 @@ body {
     width: 30%;
     background: ghostwhite;
 }
-#topic-details .show-details { display: none; }
 #topic-details .no-details { color: cornflowerblue; font-style: italic; }
 
 #topic-details span { font-weight: bold; }

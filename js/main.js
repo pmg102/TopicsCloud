@@ -4,7 +4,7 @@ define(function(require) {
 
     function onLoadTopics(data) {
         var topics = new TopicCollection(data.topics).asArray();
-        new TopicCloudWithDetailViewModel($('#topic-view'), topics).render();
+        ko.applyBindings(new TopicCloudWithDetailViewModel(topics));
     }
 
     // Workaround blocked XHR loading JSON from file://

@@ -10,22 +10,15 @@
 define(function(require) {
     var TagViewModel = require('./TagViewModel');
 
-    function TopicCloudViewModel($element, topics, topicDetailViewModel) {
-        this.$element = $element;
-        this.tags = $.map(topics,
+    function TopicCloudViewModel(topics, topicDetailViewModel) {
+        this.tags = ko.observableArray($.map(topics,
             function (eachTopic) {
                 return new TagViewModel(
-                    $element,
                     eachTopic.asTag(),
-                    function() { topicDetailViewModel.selectTopic(eachTopic.id); return false; });
+                    function() { topicDetailViewModel.selectTopic(eachTopic); });
             }
-        );
+        ));
     }
-
-    TopicCloudViewModel.prototype.render = function() {
-        this.$element.empty();
-        $.each(this.tags, function (i, ea) { ea.render(); });
-    };
 
     return TopicCloudViewModel;
 });
