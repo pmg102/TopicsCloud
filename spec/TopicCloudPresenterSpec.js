@@ -13,7 +13,7 @@ define(function(require) {
             ];
             this._topicDetailPresenter = {
                 _idSelected: null,
-                selectTopic: function(id) { this._idSelected = id; }
+                selectTopic: function(topic) { this._idSelected = topic.id; }
             };
             this.$element = $('<p></p>');
         });

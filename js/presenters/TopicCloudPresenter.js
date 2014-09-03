@@ -17,7 +17,7 @@ define(function(require) {
                 return new TagPresenter(
                     $element,
                     eachTopic.asTag(),
-                    function() { topicDetailPresenter.selectTopic(eachTopic.id); return false; });
+                    function() { topicDetailPresenter.selectTopic(eachTopic); return false; });
             }
         );
     }

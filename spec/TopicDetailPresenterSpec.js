@@ -33,7 +33,7 @@ define(function(require) {
         });
 
         it('updates to the selected topic', function() {
-            this.topicDetailPresenter.selectTopic(7);
+            this.topicDetailPresenter.selectTopic(this._topics[1]);
             this.topicDetailPresenter.render();
 
             expect(this.$element.find('.no-details').css('display')).toEqual('none');
