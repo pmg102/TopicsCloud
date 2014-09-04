@@ -22,27 +22,30 @@ define(function(require) {
                 '<b class="topic-name"></b><b class="total"></b><b class="positive"></b><b class="neutral"></b><b class="negative"></b>' +
                 '</p>');
 
+            // must attach to the DOM for visibility checks to work:
+            $('body').append(this.$element);
+
             this.topicDetailPresenter = new TopicDetailPresenter(this.$element, this._topics);
         });
 
         it('initially shows instructions pane', function() {
             this.topicDetailPresenter.render();
 
-            expect(this.$element.find('.no-details').css('display')).toEqual('block');
-            expect(this.$element.find('.show-details').css('display')).toEqual('none');
+            expect(this.$element.find('.no-details')).not.toBeHidden();
+            expect(this.$element.find('.show-details')).toBeHidden();
         });
 
         it('updates to the selected topic', function() {
             this.topicDetailPresenter.selectTopic(this._topics[1]);
             this.topicDetailPresenter.render();
 
-            expect(this.$element.find('.no-details').css('display')).toEqual('none');
-            expect(this.$element.find('.show-details').css('display')).toEqual('block');
-            expect(this.$element.find('.show-details .topic-name').text()).toEqual('testLabel2');
-            expect(this.$element.find('.show-details .total').text()).toEqual('32');
-            expect(this.$element.find('.show-details .positive').text()).toEqual('29');
-            expect(this.$element.find('.show-details .neutral').text()).toEqual('0');
-            expect(this.$element.find('.show-details .negative').text()).toEqual('3');
+            expect(this.$element.find('.no-details')).toBeHidden();
+            expect(this.$element.find('.show-details')).not.toBeHidden();
+            expect(this.$element.find('.show-details .topic-name')).toHaveText('testLabel2');
+            expect(this.$element.find('.show-details .total')).toHaveText('32');
+            expect(this.$element.find('.show-details .positive')).toHaveText('29');
+            expect(this.$element.find('.show-details .neutral')).toHaveText('0');
+            expect(this.$element.find('.show-details .negative')).toHaveText('3');
         });
     });
 
