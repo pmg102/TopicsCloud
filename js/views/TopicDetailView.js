@@ -16,19 +16,16 @@ define(function() {
 
     function TopicDetailView($element, topics) {
         this.$element = $element;
-        this.topics = [];
-        var that = this;
-        $.each(topics, function(i, each) { that.topics[each.id] = each; });
         this.selectedTopic = null;
     }
 
-    TopicDetailView.prototype.selectTopic = function(topicId) {
-        this.selectedTopic = this.topics[topicId];
+    TopicDetailView.prototype.selectTopic = function(topic) {
+        this.selectedTopic = topic;
         this.render();
     };
 
     TopicDetailView.prototype.render = function() {
-        if (!this.selectedTopic) {
+        if (this.selectedTopic === null) {
             this.$element.find('.show-details').hide();
             this.$element.find('.no-details').show();
         }

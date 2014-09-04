@@ -13,7 +13,7 @@ define(function(require) {
             ];
             this._topicDetailView = {
                 _idSelected: null,
-                selectTopic: function(id) { this._idSelected = id; }
+                selectTopic: function(topic) { this._idSelected = topic.id; }
             };
             this.$element = $('<p></p>');
         });
@@ -21,9 +21,18 @@ define(function(require) {
         it('renders correctly', function() {
             var topicCloudView = new TopicCloudView(this.$element, this._topics, this._topicDetailView);
             topicCloudView.render();
-            expect(this.$element.html())
-                .toEqual('<a href="#" class="neutral size-5">testLabel</a>' +
-                    '<a href="#" class="positive size-3">test2Label</a>');
+
+            var links = this.$element.find('a');
+            expect(links.length).toEqual(2);
+            expect($(links[0])).toBeMatchedBy('a');
+            expect($(links[0])).toHaveClass('neutral');
+            expect($(links[0])).toHaveClass('size-5');
+            expect($(links[0])).toHaveText('testLabel');
+
+            expect($(links[1])).toBeMatchedBy('a');
+            expect($(links[1])).toHaveClass('positive');
+            expect($(links[1])).toHaveClass('size-3');
+            expect($(links[1])).toHaveText('test2Label');
         });
 
         it('handles and propagates the correct click event', function() {

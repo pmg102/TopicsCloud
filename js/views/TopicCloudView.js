@@ -17,7 +17,7 @@ define(function(require) {
                 return new TagView(
                     $element,
                     eachTopic.asTag(),
-                    function() { topicDetailView.selectTopic(eachTopic.id); return false; });
+                    function() { topicDetailView.selectTopic(eachTopic); });
             }
         );
     }

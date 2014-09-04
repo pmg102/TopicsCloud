@@ -13,12 +13,11 @@ define(function(require) {
 
     function TopicCollection(topicsData) {
         // This is precalculated for speed, so will NOT be updated by changes to Topics within the Collection
-        this._maxVolume = 0;
+        this._maxVolume = Math.max.apply(null,
+            $.map(topicsData, function (each) { return each.volume; }));
 
         var that = this;
         this._topics = $.map(topicsData, function (each) {
-            // Naughty - side effect inside map() :/
-            that._maxVolume = Math.max(that._maxVolume, each.volume);
             return new Topic(each, that);
         });
     }

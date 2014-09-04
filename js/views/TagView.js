@@ -12,23 +12,22 @@ define(function(require) {
 
     function TagView($element, tag, onClick) {
         this.$element = $element;
-        $.extend(this, tag);
-        this.size = this.getSize();
+        this.tag = tag;
         this.onClick = onClick;
     }
 
     TagView.prototype._sentimentTypeAsClass = function() {
-        switch (this.sentimentType) {
+        switch (this.tag.sentimentType) {
             case Sentiment.POSITIVE: return 'positive';
             case Sentiment.NEGATIVE: return 'negative';
             default: return 'neutral';
         }
-    }
+    };
 
     TagView.prototype.render = function() {
         $('<a href="#"></a>')
-            .text(this.label)
-            .addClass(this._sentimentTypeAsClass() + ' size-' + this.size)
+            .text(this.tag.label)
+            .addClass(this._sentimentTypeAsClass() + ' size-' + this.tag.getSize())
             .click(this.onClick)
             .appendTo(this.$element);
     };
