@@ -1,8 +1,8 @@
 define(function(require) {
     var Topic = require('../js/models/Topic');
-    var TopicDetailPresenter = require('../js/presenters/TopicDetailPresenter');
+    var TopicDetailView = require('../js/views/TopicDetailView');
 
-    describe('Topic Detail Presenter', function() {
+    describe('Topic Detail View', function() {
         beforeEach(function() {
             this._topics = [
                 new Topic({   "id": 3,
@@ -22,19 +22,19 @@ define(function(require) {
                 '<b class="topic-name"></b><b class="total"></b><b class="positive"></b><b class="neutral"></b><b class="negative"></b>' +
                 '</p>');
 
-            this.topicDetailPresenter = new TopicDetailPresenter(this.$element, this._topics);
+            this.topicDetailView = new TopicDetailView(this.$element, this._topics);
         });
 
         it('initially shows instructions pane', function() {
-            this.topicDetailPresenter.render();
+            this.topicDetailView.render();
 
             expect(this.$element.find('.no-details').css('display')).toEqual('block');
             expect(this.$element.find('.show-details').css('display')).toEqual('none');
         });
 
         it('updates to the selected topic', function() {
-            this.topicDetailPresenter.selectTopic(7);
-            this.topicDetailPresenter.render();
+            this.topicDetailView.selectTopic(7);
+            this.topicDetailView.render();
 
             expect(this.$element.find('.no-details').css('display')).toEqual('none');
             expect(this.$element.find('.show-details').css('display')).toEqual('block');

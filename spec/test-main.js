@@ -1,8 +1,8 @@
 require([
     "./TopicSpec",
-    "./TagPresenterSpec",
-    "./TopicCloudPresenterSpec",
-    "./TopicDetailPresenterSpec",
+    "./TagViewSpec",
+    "./TopicCloudViewSpec",
+    "./TopicDetailViewSpec",
 ], function () {
     window.onload();
 });
