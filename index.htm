@@ -10,23 +10,31 @@
 <body>
 <h1>Trending Topics</h1>
 
-<div id="topic-view">
-    <div class="pane" id="topic-cloud"></div>
-    <div class="pane" id="topic-details">
-        <div class="show-details">
-            <h3 class="topic-name"></h3>
-            <p>Total mentions: <span class="total"></span></p>
-            <p>
-                Positive mentions: <span class="positive"></span><br/>
-                Neutral mentions: <span class="neutral"></span><br/>
-                Negative mentions: <span class="negative"></span><br/>
-            </p>
-        </div>
-        <p class="no-details">Select a topic to view detailed information.</p>
+<div class="pane" id="topic-cloud"></div>
+<div class="pane" id="topic-details"></div>
+
+<script type="text/template" id="tag-template">
+    <a href="#" class="<%= clazz %> size-<%= size %>"><%= label %></a>
+</script>
+
+<script type="text/template" id="detail-template">
+    <div class="show-details">
+        <h3><%= topicName %></h3>
+        <p>Total mentions: <span class="total"><%= totalMentions %></span></p>
+        <p>
+            Positive mentions: <span class="positive"><%= positiveMentions %></span><br/>
+            Neutral mentions: <span class="neutral"><%= neutralMentions %></span><br/>
+            Negative mentions: <span class="negative"><%= negativeMentions %></span><br/>
+        </p>
     </div>
-</div>
+    <p class="no-details">Select a topic to view detailed information.</p>
+</script>
 
 <script type="text/javascript" src="lib/jquery-2.1.1.min.js"></script>
+<script type="text/javascript" src="lib/underscore-min.js"></script>
+<script type="text/javascript" src="lib/backbone.js"></script>
+<script type="text/javascript" src="lib/backbone.marionette.js"></script>
+
 <script type="text/javascript" src="js/topics-data.js"></script>
 <!-- REPLACE lib/require.js WITH js/main-built.js FOR RELEASE: -->
 <script data-main="js/main" src="lib/require.js"></script>

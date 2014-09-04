@@ -9,26 +9,28 @@
 
 define(function(require) {
     var Sentiment = require('./Sentiment');
-    function Topic(topicData, topicCollection) {
-        $.extend(this, topicData);
-        this._topicCollection = topicCollection;
+
+    function sentimentTypeAsClass(sentimentType) {
+        switch (sentimentType) {
+            case Sentiment.POSITIVE: return 'positive';
+            case Sentiment.NEGATIVE: return 'negative';
+            default: return 'neutral';
+        }
     }
 
-    Topic.prototype._calculateProportionalVolume = function() {
-        return this._topicCollection.calculateProportionalVolume(this.volume);
-    };
+    var Topic = Backbone.Model.extend({
+        initialize: function(topicData) {
+            var sentimentType = Sentiment.fromScore(topicData.sentimentScore);
+            this.set('sentimentType', sentimentType);
+            this.set('clazz', sentimentTypeAsClass(sentimentType));
 
-    Topic.prototype.asTag = function() {
-        var that = this;
-
-        return {
-            label: that.label,
-            getSize: function() {
-                return Math.ceil(that._calculateProportionalVolume() * 6) || 1;
-            },
-            sentimentType: Sentiment.fromScore(that.sentimentScore)
-        };
-    };
+            this.set('topicName', topicData.label);
+            this.set('totalMentions', topicData.volume);
+            this.set('positiveMentions', topicData.sentiment.positive || 0);
+            this.set('neutralMentions', topicData.sentiment.neutral || 0);
+            this.set('negativeMentions', topicData.sentiment.negative || 0);
+        }
+    });
 
     return Topic;
 });

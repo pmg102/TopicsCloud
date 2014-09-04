@@ -14,31 +14,22 @@
 
 define(function() {
 
-    function TopicDetailView($element, topics) {
-        this.$element = $element;
-        this.selectedTopic = null;
-    }
+    var TopicDetailView = Backbone.Marionette.ItemView.extend({
+        template: "#detail-template",
+        tagName: 'p',
 
-    TopicDetailView.prototype.selectTopic = function(topic) {
-        this.selectedTopic = topic;
-        this.render();
-    };
+        initialize: function(options){
+            this._update( options.collection.models[0] );
+            this.listenTo(Backbone, "topicSelected", this._update);
+        },
 
-    TopicDetailView.prototype.render = function() {
-        if (this.selectedTopic === null) {
-            this.$element.find('.show-details').hide();
-            this.$element.find('.no-details').show();
+        _update: function(model){
+            this.model = model;
+            this.render();
+            this.$('.show-details').show();
+            this.$('.no-details').hide();
         }
-        else {
-            this.$element.find('.no-details').hide();
-            this.$element.find('.topic-name').text(this.selectedTopic.label);
-            this.$element.find('.total').text(this.selectedTopic.volume);
-            this.$element.find('.positive').text(this.selectedTopic.sentiment.positive || 0);
-            this.$element.find('.neutral').text(this.selectedTopic.sentiment.neutral || 0);
-            this.$element.find('.negative').text(this.selectedTopic.sentiment.negative || 0);
-            this.$element.find('.show-details').show();
-        }
-    };
+    });
 
     return TopicDetailView;
 });

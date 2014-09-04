@@ -4,12 +4,11 @@ define(function(require) {
 
     describe('Topic Cloud View', function() {
         beforeEach(function() {
-            var that = this;
             this._tag1 = { label: 'testLabel', getSize: function() { return 5; }, sentimentType: Sentiment.NEUTRAL };
             this._tag2 = { label: 'test2Label', getSize: function() { return 3; }, sentimentType: Sentiment.POSITIVE };
             this._topics = [
-                { id: 5, asTag: function() { return that._tag1; } },
-                { id: 7, asTag: function() { return that._tag2; } }
+                _.extend(this._tag1,{ id: 5 }),
+                _.extend(this._tag2,{ id: 7 })
             ];
             this._topicDetailView = {
                 _idSelected: null,

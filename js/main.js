@@ -1,10 +1,11 @@
 define(function(require) {
+    var Topic = require('./models/Topic');
     var TopicCollection = require('./models/TopicCollection');
-    var TopicCloudWithDetailView = require('./views/TopicCloudWithDetailView');
+    var TopicCloudWithDetailApp = require('./views/TopicCloudWithDetailApp');
 
     function onLoadTopics(data) {
-        var topics = new TopicCollection(data.topics).asArray();
-        new TopicCloudWithDetailView($('#topic-view'), topics).render();
+        var topics = _.map(data.topics, function(each) { return new Topic(each); });
+        TopicCloudWithDetailApp.start(new TopicCollection(topics));
     }
 
     // Workaround blocked XHR loading JSON from file://

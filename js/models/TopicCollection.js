@@ -11,24 +11,29 @@
 define(function(require) {
     var Topic = require('./Topic');
 
-    function TopicCollection(topicsData) {
-        // This is precalculated for speed, so will NOT be updated by changes to Topics within the Collection
-        this._maxVolume = Math.max.apply(null,
-            $.map(topicsData, function (each) { return each.volume; }));
+    var TopicCollection = Backbone.Collection.extend({
+        model: Topic,
 
-        var that = this;
-        this._topics = $.map(topicsData, function (each) {
-            return new Topic(each, that);
-        });
-    }
+        initialize: function(topics){
+            var self = this;
+            this.models = topics;
+            self._setChildSizes();
+            this.on('add', function(topic){
+                self._setChildSizes();
+            });
+        },
 
-    TopicCollection.prototype.calculateProportionalVolume = function(volume) {
-        return volume / this._maxVolume;
-    };
+        // FIXME: This code properly wants to live on TopicCloudView
+        _setChildSizes: function() {
+            var maxVolume = Math.max.apply(null,
+                this.map(function (each) {
+                    return each.get('volume'); }));
 
-    TopicCollection.prototype.asArray = function() {
-        return this._topics;
-    };
+            this.each(function(topic) {
+                topic.set('size', Math.ceil((topic.get('volume') / maxVolume) * 6) || 1);
+            });
+        }
+    });
 
     return TopicCollection;
 });

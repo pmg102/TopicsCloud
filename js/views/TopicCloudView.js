@@ -4,28 +4,17 @@
  * Responsibility:
  *      Renders a collection of Topics to the DOM, wiring their click events to a topicDetailView
  * Collaborators:
- *      TagView, TopicDetailView
+ *      TopicView, TopicDetailView
  */
 
 define(function(require) {
-    var TagView = require('./TagView');
+    var TopicView = require('./TopicView');
 
-    function TopicCloudView($element, topics, topicDetailView) {
-        this.$element = $element;
-        this.tags = $.map(topics,
-            function (eachTopic) {
-                return new TagView(
-                    $element,
-                    eachTopic.asTag(),
-                    function() { topicDetailView.selectTopic(eachTopic); });
-            }
-        );
-    }
-
-    TopicCloudView.prototype.render = function() {
-        this.$element.empty();
-        $.each(this.tags, function (i, ea) { ea.render(); });
-    };
+    var TopicCloudView = Backbone.Marionette.CompositeView.extend({
+        tagName: "p",
+        template: _.template(''),
+        itemView: TopicView
+    });
 
     return TopicCloudView;
 });
